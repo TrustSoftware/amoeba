@@ -24,7 +24,7 @@ Then open `http://localhost:8000`.
 
 ## Deploy
 
-The workflow at `.github/workflows/pages.yml` packages the static files and deploys them with GitHub's official Pages actions.
+The workflow at `.github/workflows/pages.yml` validates the static source, packages it, and deploys it with GitHub's official Pages actions.
 
 One repository setting must be enabled once:
 
@@ -32,16 +32,16 @@ One repository setting must be enabled once:
 2. Under **Build and deployment**, set **Source** to **GitHub Actions**.
 3. Re-run the **Deploy Amoeba to GitHub Pages** workflow if the first run occurred before Pages was enabled.
 
-The custom domain is declared as `amoeba.space`. Configure the domain's DNS for GitHub Pages, then add `amoeba.space` under **Settings -> Pages -> Custom domain** and enable HTTPS when GitHub makes the option available.
+Until a verified custom domain is attached in repository settings, the project uses its normal GitHub Pages project address. A custom-domain `CNAME` file should only be added after the exact registered domain spelling is confirmed.
 
 ## Structure
 
 ```text
-index.html                 App markup and accessible controls
-styles.css                 Responsive visual system and animation
-script.js                  Characters, navigation, voice input, and local demo logic
-assets/favicon.svg         App icon
-manifest.webmanifest       Installable web-app metadata
+index.html                  App markup and accessible controls
+styles.css                  Responsive visual system and animation
+script.js                   Characters, navigation, voice input, and local demo logic
+assets/favicon.svg          App icon
+manifest.webmanifest        Installable web-app metadata
 .github/workflows/pages.yml GitHub Pages deployment
 ```
 
