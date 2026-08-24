@@ -40,7 +40,7 @@ jobs:
           set -euo pipefail
           rm -rf _site
           mkdir -p _site/assets
-          cp index.html styles.css script.js manifest.webmanifest CNAME _site/
+          cp index.html styles.css script.js manifest.webmanifest _site/
           cp -R assets/. _site/assets/
           touch _site/.nojekyll
           test -s _site/index.html
