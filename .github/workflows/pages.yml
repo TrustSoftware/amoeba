@@ -21,6 +21,17 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v4
 
+      - name: Validate source
+        run: |
+          set -euo pipefail
+          test -s index.html
+          test -s styles.css
+          test -s script.js
+          test -s manifest.webmanifest
+          test -s assets/favicon.svg
+          node --check script.js
+          grep -q 'id="app"' index.html
+
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
 
