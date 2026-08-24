@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#e7e3d9">
+  <meta name="description" content="Amoeba is a voice-first playground for unfinished thoughts.">
+  <meta property="og:title" content="Amoeba">
+  <meta property="og:description" content="A voice-first playground for unfinished thoughts.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://amoeba.space/">
+  <title>Amoeba - think out loud</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="stylesheet" href="styles.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <div class="app-shell">
+    <header class="site-header">
+      <button class="wordmark" type="button" data-go="home" aria-label="Amoeba home">
+        <span aria-hidden="true">amoeba</span>
+      </button>
+      <nav class="top-nav" aria-label="Primary navigation">
+        <button type="button" data-go="cast">Shapes</button>
+        <button type="button" id="about-button">About</button>
+      </nav>
+    </header>
+
+    <main id="app" tabindex="-1">
+      <section class="view view--home is-active" data-view="home" aria-labelledby="home-title">
+        <div class="home-stage">
+          <div class="home-copy">
+            <p class="eyebrow">Voice playground</p>
+            <h1 id="home-title">Talk to an idea before it hardens.</h1>
+            <p class="home-intro">Type a thought or tap the microphone. Then choose the shape that should think with you.</p>
+          </div>
+
+          <div class="crystal-wrap" aria-hidden="true">
+            <span class="orbit orbit--one"></span>
+            <span class="orbit orbit--two"></span>
+            <svg class="crystal-amoeba" viewBox="0 0 520 520" role="presentation">
+              <defs>
+                <linearGradient id="glass-gradient" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0" stop-color="#ffffff" stop-opacity="0.96"></stop>
+                  <stop offset="0.18" stop-color="#d5f7ff" stop-opacity="0.82"></stop>
+                  <stop offset="0.38" stop-color="#f1d7ff" stop-opacity="0.72"></stop>
+                  <stop offset="0.58" stop-color="#dfffdf" stop-opacity="0.78"></stop>
+                  <stop offset="0.8" stop-color="#ffd7ec" stop-opacity="0.76"></stop>
+                  <stop offset="1" stop-color="#ffffff" stop-opacity="0.94"></stop>
+                </linearGradient>
+                <radialGradient id="glass-shine" cx="0.36" cy="0.24" r="0.76">
+                  <stop offset="0" stop-color="#ffffff" stop-opacity="1"></stop>
+                  <stop offset="0.28" stop-color="#ffffff" stop-opacity="0.4"></stop>
+                  <stop offset="0.64" stop-color="#a9eeff" stop-opacity="0.22"></stop>
+                  <stop offset="1" stop-color="#ffffff" stop-opacity="0"></stop>
+                </radialGradient>
+                <filter id="glass-filter" x="-35%" y="-35%" width="170%" height="170%">
+                  <feGaussianBlur in="SourceGraphic" stdDeviation="1.2" result="soft"></feGaussianBlur>
+                  <feSpecularLighting in="soft" surfaceScale="7" specularConstant="0.8" specularExponent="24" lighting-color="#ffffff" result="specular">
+                    <fePointLight x="130" y="80" z="170"></fePointLight>
+                  </feSpecularLighting>
+                  <feComposite in="specular" in2="SourceGraphic" operator="in" result="lit"></feComposite>
+                  <feBlend in="SourceGraphic" in2="lit" mode="screen"></feBlend>
+                  <feDropShadow dx="0" dy="24" stdDeviation="26" flood-color="#7d85a8" flood-opacity="0.18"></feDropShadow>
+                </filter>
+              </defs>
+              <path class="crystal-path" fill="url(#glass-gradient)" fill-rule="evenodd" filter="url(#glass-filter)" d="M258 45C327 38 402 79 445 145C488 211 473 300 438 368C402 438 325 481 247 474C169 467 94 422 64 349C34 276 48 190 95 126C142 62 196 51 258 45ZM263 168C226 164 193 184 180 220C166 258 176 310 206 337C235 363 287 359 317 333C349 305 359 255 344 218C330 184 300 171 263 168Z"></path>
+              <path class="crystal-highlight" fill="url(#glass-shine)" fill-rule="evenodd" d="M258 45C327 38 402 79 445 145C488 211 473 300 438 368C402 438 325 481 247 474C169 467 94 422 64 349C34 276 48 190 95 126C142 62 196 51 258 45ZM263 168C226 164 193 184 180 220C166 258 176 310 206 337C235 363 287 359 317 333C349 305 359 255 344 218C330 184 300 171 263 168Z"></path>
+            </svg>
+            <span class="glint glint--one"></span>
+            <span class="glint glint--two"></span>
+          </div>
+
+          <form class="voice-dock voice-dock--dark" data-voice-form="home">
+            <button class="mic-button" type="button" data-mic aria-label="Start voice input" aria-pressed="false">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M12 15.25a3.75 3.75 0 0 0 3.75-3.75V6.25a3.75 3.75 0 1 0-7.5 0v5.25A3.75 3.75 0 0 0 12 15.25Z"></path>
+                <path d="M5.75 10.75v.75a6.25 6.25 0 0 0 12.5 0v-.75M12 17.75v3.5M8.5 21.25h7"></path>
+              </svg>
+            </button>
+            <label class="sr-only" for="home-input">Your thought</label>
+            <input id="home-input" name="message" type="text" autocomplete="off" maxlength="400" placeholder="Type or tap the mic...">
+            <button class="send-button" type="submit" aria-label="Continue">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 12 12-7-4 14-2.8-5.2L6 12Z"></path></svg>
+            </button>
+          </form>
+
+          <div class="home-meta">
+            <p class="status-line" data-status aria-live="polite">Prototype mode. No account or API key required.</p>
+            <button class="text-link" type="button" data-go="cast">Meet the shapes <span aria-hidden="true">&#8594;</span></button>
+          </div>
+        </div>
+      </section>
+
+      <section class="view view--cast" data-view="cast" aria-labelledby="cast-title" hidden>
+        <div class="cast-layout">
+          <div class="section-heading">
+            <p class="eyebrow">Pick a point of view</p>
+            <h1 id="cast-title">Who should think with you?</h1>
+            <p>Each shape has a different conversational bias. Change it at any time.</p>
+          </div>
+
+          <div id="character-grid" class="character-grid" role="list" aria-label="Amoeba characters"></div>
+
+          <div class="cast-control-panel">
+            <div class="character-detail" aria-live="polite">
+              <span class="detail-kicker">Selected</span>
+              <strong id="selected-name">Drift</strong>
+              <span id="selected-description">Calm, deliberate, and good at finding the signal.</span>
+            </div>
+
+            <form class="voice-dock voice-dock--paper" data-voice-form="cast">
+              <button class="mic-button" type="button" data-mic aria-label="Start voice input" aria-pressed="false">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M12 15.25a3.75 3.75 0 0 0 3.75-3.75V6.25a3.75 3.75 0 1 0-7.5 0v5.25A3.75 3.75 0 0 0 12 15.25Z"></path>
+                  <path d="M5.75 10.75v.75a6.25 6.25 0 0 0 12.5 0v-.75M12 17.75v3.5M8.5 21.25h7"></path>
+                </svg>
+              </button>
+              <label class="sr-only" for="cast-input">Your thought</label>
+              <input id="cast-input" name="message" type="text" autocomplete="off" maxlength="400" placeholder="Add a thought before you continue...">
+              <button class="send-button" type="submit" aria-label="Continue to conversation">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 12 12-7-4 14-2.8-5.2L6 12Z"></path></svg>
+              </button>
+            </form>
+
+            <button id="continue-button" class="continue-button" type="button">
+              Continue
+              <svg viewBox="0 0 40 40" aria-hidden="true"><path d="M7 20h25M22 10l10 10-10 10"></path></svg>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <section class="view view--conversation" data-view="conversation" aria-labelledby="conversation-title" hidden>
+        <h1 id="conversation-title" class="sr-only">Amoeba conversation</h1>
+        <div class="conversation-stage">
+          <div class="conversation-top">
+            <button class="cycle-button cycle-button--previous" id="previous-character" type="button" aria-label="Previous character">
+              <svg viewBox="0 0 40 40" aria-hidden="true"><path d="M33 20H8M18 10 8 20l10 10"></path></svg>
+            </button>
+            <div class="active-character" id="active-character"></div>
+            <button class="cycle-button cycle-button--next" id="next-character" type="button" aria-label="Next character">
+              <svg viewBox="0 0 40 40" aria-hidden="true"><path d="M7 20h25M22 10l10 10-10 10"></path></svg>
+            </button>
+            <div class="conversation-card" id="conversation-log" aria-live="polite" aria-label="Conversation"></div>
+          </div>
+
+          <div class="conversation-bottom">
+            <div class="companion-seat" id="companion-seat" aria-hidden="true"></div>
+            <div class="conversation-controls">
+              <div class="conversation-toolbar">
+                <span><strong id="active-name">Drift</strong> <span id="active-trait">Steady</span></span>
+                <button id="sound-toggle" class="sound-toggle" type="button" aria-pressed="false">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 10v4h4l5 4V6L8 10H4Z"></path><path class="sound-waves" d="M16 9a4 4 0 0 1 0 6M18.5 6.5a7.5 7.5 0 0 1 0 11"></path></svg>
+                  <span>Voice off</span>
+                </button>
+              </div>
+
+              <form class="voice-dock voice-dock--dark voice-dock--conversation" data-voice-form="conversation">
+                <button class="mic-button" type="button" data-mic aria-label="Start voice input" aria-pressed="false">
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M12 15.25a3.75 3.75 0 0 0 3.75-3.75V6.25a3.75 3.75 0 1 0-7.5 0v5.25A3.75 3.75 0 0 0 12 15.25Z"></path>
+                    <path d="M5.75 10.75v.75a6.25 6.25 0 0 0 12.5 0v-.75M12 17.75v3.5M8.5 21.25h7"></path>
+                  </svg>
+                </button>
+                <label class="sr-only" for="conversation-input">Message</label>
+                <input id="conversation-input" name="message" type="text" autocomplete="off" maxlength="400" placeholder="Say what is on your mind...">
+                <button class="send-button" type="submit" aria-label="Send message">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 12 12-7-4 14-2.8-5.2L6 12Z"></path></svg>
+                </button>
+              </form>
+              <p class="conversation-note" data-status aria-live="polite">Local demo responses; no AI backend is connected yet.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <dialog id="about-dialog" class="about-dialog">
+    <button class="dialog-close" type="button" aria-label="Close about dialog">&#215;</button>
+    <p class="eyebrow">Amoeba 0.1.0</p>
+    <h2>A place for thoughts that are still changing shape.</h2>
+    <p>This first prototype turns the supplied visual sketches into a responsive, voice-capable interface. Text responses are generated locally in the browser; a secure AI backend can be connected later.</p>
+    <p>Microphone support depends on the browser. A text field is always available as the fallback.</p>
+    <button class="dialog-action" type="button" data-dialog-go="cast">Choose a shape</button>
+  </dialog>
+
+  <noscript>
+    <div class="noscript-message">Amoeba needs JavaScript for character selection and voice controls.</div>
+  </noscript>
+</body>
+</html>
