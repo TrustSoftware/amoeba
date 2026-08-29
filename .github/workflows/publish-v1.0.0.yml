@@ -1,0 +1,29 @@
+name: Publish Amoeba v1.0.0
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - .github/workflows/publish-v1.0.0.yml
+
+permissions:
+  contents: write
+
+jobs:
+  publish-release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Publish v1.0.0
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if gh release view v1.0.0 --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
+            echo "Release v1.0.0 already exists."
+          else
+            gh release create v1.0.0 \
+              --repo "$GITHUB_REPOSITORY" \
+              --target main \
+              --title "Amoeba v1.0.0" \
+              --generate-notes
+          fi
